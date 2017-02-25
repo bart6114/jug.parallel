@@ -10,6 +10,7 @@
 #' @param host_daemon the host of the daemon
 #' @param port_daemon the port of the daemon
 #' @param processes the number of parallel processes to spin up
+#' @param node_executable define how to call the Node.js executable
 #' @param verbose verbosity of the jug instances
 serve_it_parallel <-
   function(jug,
@@ -18,6 +19,7 @@ serve_it_parallel <-
            host_daemon = "127.0.0.1",
            port_daemon = 8081,
            processes = parallel::detectCores(),
+           node_executable = "node",
            verbose = FALSE) {
     if (Sys.getenv("JUG_PARALLEL") == "") {
       balancer <- system.file("balancer.js", package = "jug.parallel")
@@ -36,7 +38,7 @@ serve_it_parallel <-
 
       Sys.setenv("NODE_PATH" = system.file("node_modules", package = "jug.parallel"))
       cmd <-
-        paste("node",
+        paste(node_executable,
               balancer,
               tmp_img,
               processes,

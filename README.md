@@ -4,6 +4,10 @@
 
 `jug.parallel` allows processing `jug` requests in parallel. Under the hood it launches a node.js based load balancer which in turn spins up `n` different instances of your `jug` instance. A round-robin approach is used to distribute the requests.
 
+## Requirements
+
+- node.js installation
+
 ## Installation
 
 ```r
