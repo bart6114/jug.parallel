@@ -12,10 +12,8 @@ let arguments = process.argv.splice(2),
 
 
 let cmd = 'load("' + image + '"); .load_pkgs(); jug::serve_it(.JUG, port={port})';
+process.env.JUG_PARALLEL = 1
 
-
-let env = Object.create(process.env);
-env.JUG_PARALLEL = 1
 let processPort = 10000
 // define jug processes
 let processes = Array(numberProcesses)
@@ -38,7 +36,7 @@ for (let i = 0; i < processes.length; i++) {
     let child = spawn('Rscript',
         args = ['-e', rCmd],
         options = {
-            env: env,
+            env: process.env,
             detached: true
         });
 
@@ -72,7 +70,7 @@ http.createServer(function(req, res) {
 
 http.createServer(function(req, res) {
     if (req.url == '/stop') {
-        res.end('stopping servers...');
+        res.end('Server cleanup command received');
         process.exit(0)
     }
 }).listen(portDaemon);
