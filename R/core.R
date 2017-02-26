@@ -11,6 +11,7 @@
 #' @param port_daemon the port of the daemon
 #' @param processes the number of parallel processes to spin up
 #' @param node_executable define how to call the Node.js executable
+#' @param wait wait for the process to finish?
 #' @param verbose verbosity of the jug instances
 serve_it_parallel <-
   function(jug,
@@ -20,6 +21,7 @@ serve_it_parallel <-
            port_daemon = 8081,
            processes = parallel::detectCores(),
            node_executable = "node",
+           wait = TRUE,
            verbose = FALSE) {
     if (Sys.getenv("JUG_PARALLEL") == "") {
       balancer <- system.file("balancer.js", package = "jug.parallel")
@@ -48,6 +50,12 @@ serve_it_parallel <-
               port_daemon)
       cat(cmd, "\n")
       system(cmd, wait = FALSE)
+      if(wait){
+        # mimicks in process behaviour with advantage of cleaning up servers when finished
+        # i.e. kill_servers doesnt have to be called
+        on.exit(kill_servers(host_daemon, port_daemon))
+        while(TRUE) Sys.sleep(1)
+      }
     } else {
       jug::serve_it(
         jug = jug,
@@ -63,8 +71,8 @@ serve_it_parallel <-
 #'
 #' @param host the host of the daemon process
 #' @param daemon_port the port of the daemon process
-kill_servers <- function(host = "127.0.0.1", daemon_port = 8081) {
-  address <- paste0("http://", host, ":", daemon_port, "/stop")
+kill_servers <- function(host_daemon = "127.0.0.1", port_daemon = 8081) {
+  address <- paste0("http://", host_daemon, ":", port_daemon, "/stop")
   curl::curl_fetch_memory(address)
   return(TRUE)
 }

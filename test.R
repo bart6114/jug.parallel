@@ -5,5 +5,5 @@ jug() %>%
     "Hello World!"
   }) %>%
   simple_error_handler_json() %>%
-  serve_it_parallel()
+  serve_it_parallel(wait=T)
 

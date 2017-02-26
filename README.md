@@ -36,6 +36,8 @@ curl 127.0.0.1:8080
 Hello World!
 ```
 
+One call also call `serve_it_parallel` with `wait=FALSE`. This way the terminal will not be blocked and the `jug` instances will be served in the background. Remember that you will have to clean up the servers manually.
+
 Stop and clean-up all servers:
 ```r
 kill_servers()
