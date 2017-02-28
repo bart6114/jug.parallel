@@ -47,7 +47,8 @@ serve_it_parallel <-
               host,
               port,
               host_daemon,
-              port_daemon)
+              port_daemon,
+              verbose)
 
       system(cmd, wait = FALSE)
       if(wait){
