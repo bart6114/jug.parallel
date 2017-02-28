@@ -31,7 +31,7 @@ let processes = Array(numberProcesses)
 
 for (let i = 0; i < processes.length; i++) {
     let rCmd = cmd.replace('{port}', processes[i].port);
-    console.log('Creating instance ' + i + ' at port ' + processes[i].port);
+    console.log('Creating jug instance ' + i + ' at port ' + processes[i].port);
 
     let child = spawn('Rscript',
         args = ['-e', rCmd],
@@ -61,6 +61,8 @@ proxy.on('error', function(e) {
 });
 
 
+console.log('Serving jug entrypoint at ' + host + ':' + port);
+ 
 let p = 0;
 http.createServer(function(req, res) {
     proxy.web(req, res, processes[p]);

@@ -48,7 +48,7 @@ serve_it_parallel <-
               port,
               host_daemon,
               port_daemon)
-      cat(cmd, "\n")
+
       system(cmd, wait = FALSE)
       if(wait){
         # mimicks in process behaviour with advantage of cleaning up servers when finished
