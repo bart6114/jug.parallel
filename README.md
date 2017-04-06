@@ -49,7 +49,7 @@ Stopping servers...success
 
 ## Benchmarks
 
-Below (non-exhaustive) load tests have been done using [loadtest](https://www.npmjs.com/package/loadtest) on a MacBook Pro with a 2,5 GHz Intel Core i7 CPU. The requests for second (rps) was set to 1000.
+Below (non-exhaustive) load tests have been done using [loadtest](https://www.npmjs.com/package/loadtest) on a MacBook Pro with a 2,5 GHz Intel Core i7 CPU. The requests per second (rps) parameter was set to 1000.
 
 | type         | concurrency | requests | duration (secs) | errors |
 |--------------|-------------|----------|-----------------|--------|
