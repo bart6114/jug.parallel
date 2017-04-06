@@ -14,9 +14,9 @@ let arguments = process.argv.splice(2),
 console.log(verbose);
 
 let cmd = 'load("' + image + '"); .load_pkgs(); jug::serve_it(.JUG, port={port})';
-process.env.JUG_PARALLEL = 1
+process.env.JUG_PARALLEL = 1;
 
-let processPort = 10000
+let processPort = 10000;
 // define jug processes
 let processes = Array(numberProcesses)
     .fill(0)
@@ -25,8 +25,8 @@ let processes = Array(numberProcesses)
         port: processPort + i
     }))
     .map((x) => {
-        x.target = 'http://' + x.host + ':' + x.port
-        return x
+        x.target = 'http://' + x.host + ':' + x.port;
+        return x;
     });
 
 // spin up jug processes
@@ -50,11 +50,11 @@ for (let i = 0; i < processes.length; i++) {
 }
 
 process.on('exit', function() {
-    process.stdout.write('Stopping servers...')
+    process.stdout.write('Stopping servers...');
     for (let i = 0; i < processes.length; i++) {
         process.kill(-processes[i].pid);
     }
-    console.log('success')
+    console.log('success');
 });
 
 let proxy = httpProxy.createProxyServer(options);
@@ -76,6 +76,6 @@ http.createServer(function(req, res) {
 http.createServer(function(req, res) {
     if (req.url == '/stop') {
         res.end('Server cleanup command received');
-        process.exit(0)
+        process.exit(0);
     }
 }).listen(portDaemon);

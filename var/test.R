@@ -6,5 +6,6 @@ jug() %>%
     "Hello World!"
   }) %>%
   simple_error_handler_json() %>%
-  serve_it_parallel(processes = 20)
+  serve_it()
+  # serve_it_parallel(processes = 8, port = 8080)
 
